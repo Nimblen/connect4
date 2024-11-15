@@ -1,59 +1,35 @@
 /* General layout */
-
 body {
   background-image: url("image/background.webp");
   background-size: cover;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0;
   min-height: 100vh;
-}
-
-/* Action buttons */
-
-.actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  width: 920px;
-  height: 100px;
-}
-
-.action {
-  color: darkgray;
-  background-color: rgb(116, 58, 131);
   font-family: "Helvetica Neue", sans-serif;
-  font-size: 20px;
-  line-height: 20px;
-  font-weight: 300;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 20px;
-  width: 120px;
 }
 
-.action:hover {
-  background-color: rgb(243, 20, 232);
-  color: white;
-  font-weight: 700;
-}
-
-.action[href=""] {
-  display: none;
+/* Game container */
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+  gap: 30px; /* Adds more space between chat and board */
+  max-width: 1200px;
 }
 
 /* Connect Four board */
-
 .board {
   background-color: rgb(79, 57, 161);
   display: flex;
   flex-direction: row;
-  padding: 0 10px;
+  padding: 10px;
+  border-radius: 10px;
   position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow to board */
 }
 
 .board::before,
@@ -63,6 +39,7 @@ body {
   height: 720px;
   width: 20px;
   position: absolute;
+  border-radius: 5px;
 }
 
 .board::before {
@@ -106,49 +83,66 @@ body {
   background-color: yellow;
 }
 
-
-/* Container for board and chat, side-by-side */
-.game-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%; /* Full-width container */
-  margin-top: 20px;
-  gap: 20px; /* Adds space between board and chat */
-}
-
-
-
 /* Chat section styling */
 .chat {
-  width: 220px; /* Fixed width */
-  height: 600px; /* Match the height of the board */
+  width: 250px;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.05); /* Slight background for clarity */
+  background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
-  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow to chat */
 }
 
-/* Chat messages styling */
 .chat-messages {
   color: aqua;
   flex-grow: 1;
   overflow-y: auto;
   padding: 10px;
-  border-bottom: 1px solid #dddddd3a;
+  border-bottom: 1px solid #ddd;
   margin-bottom: 10px;
 }
 
-/* Chat input styling */
 .chat-input {
   padding: 10px;
   font-size: 16px;
   background-color: rgba(0, 0, 0, 0.05);
   border: 1px solid #a80d0d21;
   border-radius: 5px;
-  width: 100%; 
+  width: 100%;
   box-sizing: border-box;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 20px;
+}
+
+.action {
+  color: darkgray;
+  background-color: rgb(116, 58, 131);
+  font-size: 18px;
+  font-weight: 300;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.action:hover {
+  background-color: rgb(243, 20, 232);
+  color: white;
+  font-weight: 700;
+  transform: translateY(-2px); /* Slight lift effect */
 }
