@@ -48,40 +48,40 @@ async def replay(websocket, game):
 
 
 async def play(websocket, game, player, connected):
-    """
-    Receive and process moves from a player.
-
-    """
     async for message in websocket:
-        # Parse a "play" event from the UI.
         event = json.loads(message)
-        assert event["type"] == "play"
-        column = event["column"]
 
-        try:
-            # Play the move.
-            row = game.play(player, column)
-        except ValueError as exc:
-            # Send an "error" event if the move was illegal.
-            await error(websocket, str(exc))
-            continue
-
-        # Send a "play" event to update the UI.
-        event = {
-            "type": "play",
-            "player": player,
-            "column": column,
-            "row": row,
-        }
-        broadcast(connected, json.dumps(event))
-
-        # If move is winning, send a "win" event.
-        if game.winner is not None:
+        if event["type"] == "play":
+            column = event["column"]
+            try:
+                row = game.play(player, column)
+            except ValueError as exc:
+                await error(websocket, str(exc))
+                continue
             event = {
-                "type": "win",
-                "player": game.winner,
+                "type": "play",
+                "player": player,
+                "column": column,
+                "row": row,
             }
             broadcast(connected, json.dumps(event))
+
+            if game.winner is not None:
+                event = {
+                    "type": "win",
+                    "player": game.winner,
+                }
+                broadcast(connected, json.dumps(event))
+
+        elif event["type"] == "chat":
+            # Broadcast chat message to all connected clients.
+            chat_event = {
+                "type": "chat",
+                "player": player,
+                "message": event["message"],
+            }
+            broadcast(connected, json.dumps(chat_event))
+
 
 
 async def start(websocket):
@@ -187,7 +187,7 @@ async def main():
     # Set the stop condition when receiving SIGTERM.
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
-    loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
+
 
     port = int(os.environ.get("PORT", "8001"))
     async with serve(handler, "", port):

@@ -1,0 +1,154 @@
+/* General layout */
+
+body {
+  background-image: url("image/background.webp");
+  background-size: cover;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Action buttons */
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  width: 920px;
+  height: 100px;
+}
+
+.action {
+  color: darkgray;
+  background-color: rgb(116, 58, 131);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 300;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 20px;
+  width: 120px;
+}
+
+.action:hover {
+  background-color: rgb(243, 20, 232);
+  color: white;
+  font-weight: 700;
+}
+
+.action[href=""] {
+  display: none;
+}
+
+/* Connect Four board */
+
+.board {
+  background-color: rgb(79, 57, 161);
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px;
+  position: relative;
+}
+
+.board::before,
+.board::after {
+  background-color: rgb(85, 85, 190);
+  content: "";
+  height: 720px;
+  width: 20px;
+  position: absolute;
+}
+
+.board::before {
+  left: -20px;
+}
+
+.board::after {
+  right: -20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 10px;
+}
+
+.cell {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 10px 0;
+}
+
+.empty {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+.column:hover .empty {
+  background-color: rgb(151, 141, 243);
+}
+
+.column:hover .empty ~ .empty {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+
+/* Container for board and chat, side-by-side */
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%; /* Full-width container */
+  margin-top: 20px;
+  gap: 20px; /* Adds space between board and chat */
+}
+
+
+
+/* Chat section styling */
+.chat {
+  width: 220px; /* Fixed width */
+  height: 600px; /* Match the height of the board */
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.05); /* Slight background for clarity */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+
+/* Chat messages styling */
+.chat-messages {
+  color: aqua;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd3a;
+  margin-bottom: 10px;
+}
+
+/* Chat input styling */
+.chat-input {
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #a80d0d21;
+  border-radius: 5px;
+  width: 100%; 
+  box-sizing: border-box;
+}
